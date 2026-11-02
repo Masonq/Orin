@@ -11,7 +11,7 @@ export const dict = {
     },
     greet: { morning: 'Доброе утро', day: 'Добрый день', evening: 'Добрый вечер', night: 'Доброй ночи' },
     a: {
-      idle: 'Готов', listen: 'Слушаю', think: 'Думаю', speak: 'Отвечаю',
+      idle: 'Готов', listen: 'Слушаю', think: 'Думаю', speak: 'Отвечаю', done: 'Готово',
       hintTap: 'Нажмите на шар или микрофон и спросите: «Что у нас сегодня?»',
       hintInterrupt: 'Нажмите на шар, чтобы перебить',
       hintListen: 'Говорите, я слушаю',
@@ -76,7 +76,7 @@ export const dict = {
     },
     set: {
       title: 'Настройки', name: 'Как к вам обращаться', lang: 'Язык', voice: 'Озвучивать ответы',
-      rate: 'Скорость речи', night: 'Ночной режим', nightSub: 'Темнее фон и стекло',
+      rate: 'Скорость речи', theme: 'Тема', themeAuto: 'Как в системе', themeLight: 'Светлая', themeDark: 'Тёмная',
       reset: 'Сбросить демо-данные', resetDone: 'Демо-данные сброшены', photo: 'Фото фона', version: 'Версия',
       logoutTitle: 'Выйти из Orin?', logoutText: 'Настройки на этом устройстве будут сброшены.', logoutOk: 'Выйти', cancel: 'Отмена',
       install: 'Установить на iPhone', installText: 'Откройте сайт в Safari, нажмите «Поделиться» и выберите «На экран Домой».',
@@ -96,7 +96,7 @@ export const dict = {
     },
     greet: { morning: 'Good morning', day: 'Good afternoon', evening: 'Good evening', night: 'Good night' },
     a: {
-      idle: 'Ready', listen: 'Listening', think: 'Thinking', speak: 'Speaking',
+      idle: 'Ready', listen: 'Listening', think: 'Thinking', speak: 'Speaking', done: 'Done',
       hintTap: 'Tap the orb or the mic and ask: “What is new today?”',
       hintInterrupt: 'Tap the orb to interrupt', hintListen: 'Go ahead, I am listening',
       placeholder: 'Or type a question', send: 'Send', mic: 'Speak', stop: 'Stop',
@@ -156,7 +156,7 @@ export const dict = {
     },
     set: {
       title: 'Settings', name: 'What should I call you', lang: 'Language', voice: 'Speak answers aloud',
-      rate: 'Speech rate', night: 'Night mode', nightSub: 'Darker background and glass',
+      rate: 'Speech rate', theme: 'Theme', themeAuto: 'System', themeLight: 'Light', themeDark: 'Dark',
       reset: 'Reset demo data', resetDone: 'Demo data reset', photo: 'Background photo', version: 'Version',
       logoutTitle: 'Log out of Orin?', logoutText: 'Settings on this device will be reset.', logoutOk: 'Log out', cancel: 'Cancel',
       install: 'Install on iPhone', installText: 'Open the site in Safari, tap Share and choose Add to Home Screen.',

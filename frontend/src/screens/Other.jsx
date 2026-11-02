@@ -105,9 +105,11 @@ export function Settings({ onLogout }) {
               options={[{ value: '0.85', label: '0.85×' }, { value: '1', label: '1×' }, { value: '1.15', label: '1.15×' }, { value: '1.3', label: '1.3×' }]} />
           </div>
         )}
-        <div className="set-row">
-          <span>{t.set.night}<small>{t.set.nightSub}</small></span>
-          <Switch checked={settings.night} onChange={(v) => set({ night: v })} label={t.set.night} />
+        <div className="set-row col">
+          <span>{t.set.theme}</span>
+          <Segmented small value={settings.theme} onChange={(v) => set({ theme: v })} options={[
+            { value: 'auto', label: t.set.themeAuto }, { value: 'light', label: t.set.themeLight }, { value: 'dark', label: t.set.themeDark },
+          ]} />
         </div>
       </section>
       {isIOS && !standalone && (

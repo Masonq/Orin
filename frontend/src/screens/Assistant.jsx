@@ -60,6 +60,12 @@ export default function Assistant({ desktop }) {
 
   useEffect(() => () => { stopListenRef.current?.(); stopSpeaking() }, [])
 
+  // после ответа шар на секунду складывается в логотип, потом снова в покой
+  const finish = useCallback((run) => {
+    setMode('done')
+    setTimeout(() => { if (run === runRef.current) setMode((m) => (m === 'done' ? 'idle' : m)) }, 1400)
+  }, [])
+
   const ask = useCallback(async (q) => {
     const query = q.trim()
     if (!query) return
@@ -90,10 +96,10 @@ export default function Assistant({ desktop }) {
       stopSpeakRef.current = speak(res.answer, {
         lang, rate: settings.rate,
         onBoundary: () => { targetRef.current = 0.65 + Math.random() * 0.35 },
-        onEnd: () => { if (run === runRef.current) setMode('idle') },
+        onEnd: () => { if (run === runRef.current) finish(run) },
       })
-    } else setMode('idle')
-  }, [lang, settings.voice, settings.rate, t, toast, refresh])
+    } else finish(run)
+  }, [lang, settings.voice, settings.rate, t, toast, refresh, finish])
 
   const startListen = useCallback(() => {
     unlockSpeech()
@@ -130,7 +136,7 @@ export default function Assistant({ desktop }) {
     inputRef.current?.blur()
   }
 
-  const hint = mode === 'listen' ? t.a.hintListen : mode === 'speak' ? t.a.hintInterrupt : t.a.hintTap
+  const hint = mode === 'done' ? t.a.hintTap : mode === 'listen' ? t.a.hintListen : mode === 'speak' ? t.a.hintInterrupt : t.a.hintTap
   const hasDialog = question || answer
   const compact = !desktop && !!hasDialog
   const answerRef = useRef(null)

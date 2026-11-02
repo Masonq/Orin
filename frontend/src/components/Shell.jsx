@@ -32,7 +32,7 @@ function useBadges() {
 }
 
 export function Sidebar({ open, onClose, onLogout, desktop }) {
-  const { t, route, navigate, settings, set, data, setProject, project } = useApp()
+  const { t, route, navigate, settings, set, data, setProject, project, theme } = useApp()
   const badges = useBadges()
   const [q, setQ] = useState('')
   const [projOpen, setProjOpen] = useState(true)
@@ -123,10 +123,10 @@ export function Sidebar({ open, onClose, onLogout, desktop }) {
 
       <div className="side-foot">
         <div className={`side-item static ${collapsed ? '' : 'night'}`} data-tip={collapsed ? t.side.night : undefined}
-          onClick={collapsed ? () => set({ night: !settings.night }) : undefined}>
+          onClick={collapsed ? () => set({ theme: theme === 'dark' ? 'light' : 'dark' }) : undefined}>
           <span className="side-ic"><Moon size={18} strokeWidth={1.8} /></span>
           {!collapsed && <span className="side-label">{t.side.night}</span>}
-          {!collapsed && <Switch checked={settings.night} onChange={(v) => set({ night: v })} label={t.side.night} />}
+          {!collapsed && <Switch checked={theme === 'dark'} onChange={(v) => set({ theme: v ? 'dark' : 'light' })} label={t.side.night} />}
         </div>
         <div className="side-user">
           <Avatar name={settings.name || 'Orin'} size={34} />

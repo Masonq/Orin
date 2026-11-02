@@ -5,11 +5,15 @@ import { api } from './api'
 const Ctx = createContext(null)
 export const useApp = () => useContext(Ctx)
 
-const DEFAULTS = { name: 'Максим', lang: 'ru', voice: true, rate: 1, night: false, collapsed: false, plan: 'start' }
+const DEFAULTS = { name: 'Максим', lang: 'ru', voice: true, rate: 1, theme: 'auto', collapsed: false, plan: 'start' }
 const KEY = 'orin.settings.v1'
 
 function loadSettings() {
-  try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') } } catch { return DEFAULTS }
+  try {
+    const s = { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') }
+    if ('night' in s) { if (s.night) s.theme = 'dark'; delete s.night }
+    return s
+  } catch { return DEFAULTS }
 }
 
 export const ROUTES = ['assistant', 'summary', 'comments', 'rules', 'calendar', 'accounts', 'plans', 'settings']
@@ -55,10 +59,19 @@ export function AppProvider({ children }) {
     return () => window.removeEventListener('hashchange', on)
   }, [])
 
+  const [sysDark, setSysDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches)
+  useEffect(() => {
+    const m = window.matchMedia('(prefers-color-scheme: dark)')
+    const on = () => setSysDark(m.matches)
+    m.addEventListener('change', on)
+    return () => m.removeEventListener('change', on)
+  }, [])
+  const theme = settings.theme === 'auto' ? (sysDark ? 'dark' : 'light') : settings.theme
   useEffect(() => {
     document.documentElement.lang = settings.lang
-    document.documentElement.dataset.night = settings.night ? '1' : '0'
-  }, [settings.lang, settings.night])
+    document.documentElement.dataset.theme = theme
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#10286e' : '#e9efff')
+  }, [settings.lang, theme])
 
   const navigate = useCallback((r) => {
     if (r === readRoute()) return
@@ -72,8 +85,8 @@ export function AppProvider({ children }) {
   }, [])
 
   const value = useMemo(() => ({
-    settings, set, t, lang: settings.lang, route, navigate, data, error, refresh, toast, toasts, project, setProject,
-  }), [settings, set, t, route, navigate, data, error, refresh, toast, toasts, project])
+    settings, set, t, lang: settings.lang, theme, route, navigate, data, error, refresh, toast, toasts, project, setProject,
+  }), [settings, set, t, theme, route, navigate, data, error, refresh, toast, toasts, project])
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
