@@ -1,6 +1,6 @@
-const VERSION = '2026.11.02-232309'
+const VERSION = '2026.11.02-232550'
 const CACHE = `orin-${VERSION}`
-const SHELL = ['/', '/manifest.webmanifest', '/img/room.webp', '/img/room-tiny.webp', '/icons/icon-192.png']
+const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png']
 
 self.addEventListener('install', (e) => {
   self.skipWaiting()

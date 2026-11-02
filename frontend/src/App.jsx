@@ -43,7 +43,7 @@ function Shell() {
 
   return (
     <div className={`app ${desktop ? 'is-desk' : 'is-mob'} ${desktop && settings.collapsed ? 'side-collapsed' : ''}`}>
-      <div className="scene" aria-hidden="true"><div className="scene-img" /><div className="scene-tint" /></div>
+      <div className="scene" aria-hidden="true"><div className="blob blob-b" /><div className="blob blob-w" /><div className="blob blob-o" /><div className="blob blob-o2" /><div className="scene-grain" /><div className="scene-tint" /></div>
       {desktop ? (
         <Sidebar desktop onLogout={() => setLogout(true)} />
       ) : (

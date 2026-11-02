@@ -118,7 +118,6 @@ export function Settings({ onLogout }) {
         <button type="button" className="set-row btn-row danger-t" onClick={onLogout}>{t.side.logout}</button>
       </section>
       <p className="credits">
-        {t.set.photo}: GLSGMC, <a href="https://commons.wikimedia.org/wiki/File:View_from_Living_Room_Light_Keepers.jpg" target="_blank" rel="noreferrer">CC BY-SA 4.0</a><br />
         {t.set.version} {__APP_VERSION__}
       </p>
     </div>
