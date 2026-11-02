@@ -1,0 +1,15 @@
+[Unit]
+Description=Orin API
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/orin/backend
+Environment=ORIN_DB=/var/lib/orin/orin.db
+EnvironmentFile=-/opt/orin/deploy/version.env
+ExecStart=/opt/orin/.venv/bin/uvicorn app:app --host 127.0.0.1 --port 8710 --workers 1 --proxy-headers
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
