@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Деплой Orin: ставит зависимости, поднимает API и nginx, выпускает HTTPS, проверяет и пишет отчёт в git.
 set -uo pipefail
+export GIT_TERMINAL_PROMPT=0
 APP=/opt/orin
 DOMAIN=orin.89-208-113-147.sslip.io
 PORT=8710
@@ -13,7 +14,8 @@ fail() { echo "ОШИБКА: $*"; finish 1; }
 finish() {
   echo; echo "== Итог: $([ "${1:-0}" = 0 ] && echo УСПЕХ || echo ОШИБКА) ($TS UTC)"
   cd "$APP" && git add reports/deploy-latest.txt >/dev/null 2>&1 && git -c user.name="orin-server" -c user.email="orin@server" commit -qm "deploy report $TS" >/dev/null 2>&1
-  git pull -q --rebase >/dev/null 2>&1; git push -q >/dev/null 2>&1 && echo "отчёт отправлен в git" || echo "не удалось отправить отчёт в git"
+  git pull -q --rebase >/dev/null 2>&1
+  if PUSH_ERR=$(git push -q 2>&1); then echo "отчёт отправлен в git"; else echo "не удалось отправить отчёт в git: $PUSH_ERR"; fi
   exit "${1:-0}"
 }
 
@@ -63,7 +65,7 @@ write_https() {
   { echo "server {"; echo "    listen 80;"; echo "    server_name $DOMAIN;"
     echo "    location /.well-known/acme-challenge/ { root $APP/frontend/dist; }"
     echo "    location / { return 301 https://\$host\$request_uri; }"; echo "}"
-    echo "server {"; echo "    listen 443 ssl http2;"; echo "    server_name $DOMAIN;"
+    echo "server {"; echo "    listen 443 ssl;"; echo "    server_name $DOMAIN;"
     echo "    ssl_certificate $CERT/fullchain.pem;"; echo "    ssl_certificate_key $CERT/privkey.pem;"
     echo "    ssl_protocols TLSv1.2 TLSv1.3;"
     cat deploy/nginx-body.conf; echo "}"; } > "$CONF"
