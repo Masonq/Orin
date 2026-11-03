@@ -10,12 +10,12 @@ function createOrb(cv, opts) {
   const N = S < 260 ? 1400 : 2000;
   const PAL = {
     dark: {
-      idle: [[243, 194, 119], [127, 231, 224]], listen: [[127, 231, 224], [96, 165, 255]], think: [[180, 155, 255], [120, 92, 255]],
-      speak: [[155, 240, 122], [64, 214, 164]], done: [[255, 255, 255], [243, 194, 119]], error: [[255, 138, 122], [255, 96, 96]],
+      idle: [[255, 196, 107], [255, 120, 110]], listen: [[140, 230, 215], [255, 196, 107]], think: [[255, 120, 170], [180, 100, 255]],
+      speak: [[150, 235, 170], [255, 196, 107]], done: [[255, 244, 236], [255, 138, 61]], error: [[255, 107, 107], [255, 60, 90]],
     },
     light: {
-      idle: [[47, 107, 255], [236, 128, 32]], listen: [[10, 150, 170], [47, 107, 255]], think: [[109, 74, 255], [150, 110, 255]],
-      speak: [[16, 150, 100], [10, 150, 170]], done: [[22, 32, 60], [47, 107, 255]], error: [[214, 64, 56], [236, 128, 32]],
+      idle: [[210, 85, 26], [200, 60, 90]], listen: [[12, 140, 125], [210, 85, 26]], think: [[200, 50, 120], [130, 60, 220]],
+      speak: [[20, 135, 85], [210, 85, 26]], done: [[42, 18, 22], [210, 85, 26]], error: [[200, 50, 50], [210, 85, 26]],
     },
   };
   const sphere = [], ring = [], logo = [], P = [], seed = new Float32Array(N);
@@ -100,5 +100,4 @@ function createOrb(cv, opts) {
   document.addEventListener("visibilitychange", vis);
   return { stop() { alive = false; cancelAnimationFrame(raf); document.removeEventListener("visibilitychange", vis); } };
 }
-
 export default createOrb

@@ -1,4 +1,4 @@
-const VERSION = '2026.11.02-235015'
+const VERSION = '2026.11.03-000704'
 const CACHE = `orin-${VERSION}`
 const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png']
 

@@ -70,7 +70,7 @@ export function AppProvider({ children }) {
   useEffect(() => {
     document.documentElement.lang = settings.lang
     document.documentElement.dataset.theme = theme
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#10286e' : '#e9efff')
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#1a0b0e' : '#fff8f2')
   }, [settings.lang, theme])
 
   const navigate = useCallback((r) => {
